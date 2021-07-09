@@ -5,6 +5,21 @@ namespace Calc
 {
     public class Calculator
     {
+        static string UnarMinus(string mathline)
+        {
+            if (mathline[0] == '-' || mathline[0] == '+')
+            {
+                mathline = mathline.Insert(0, "0");
+            }
+            for (int i = 1; i < mathline.Length; i++)
+            {
+                if (((mathline[i - 1] == '(') || (mathline[i - 1] == '+') || (mathline[i - 1] == '-')) && ((mathline[i] == '-') || (mathline[i] == '+')))
+                {
+                    mathline = mathline.Insert(i, "0");
+                }
+            }
+            return mathline;
+        }
         static int EvaluateExpression(char[] exp)
         {
             Stack<int> vStack = new Stack<int>();
@@ -106,6 +121,7 @@ namespace Calc
 
         public static string Calculate(string line)
         {
+            line = UnarMinus(line);
             char[] exp = line.ToCharArray();
             try
             {
