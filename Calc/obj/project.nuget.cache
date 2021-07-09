@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8rh6HTqKRX0AgaBAwrM85mJQ/LhAuSgFg00CHyufVRVFBrDOsOcRdj8G8bqFDisAfMYksBkRB9UITerua5yZkw==",
+  "dgSpecHash": "bkRfyA3dNbvoWD+jz6R+cNrF230uoGr32Kzk8dSoPabkH+CbS4Th5YuMUYWx/U34Pyerh58SqtzJqqeWSFfkuA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\User\\source\\repos\\gg\\Calc\\Calc.csproj",
+  "projectFilePath": "C:\\Users\\User\\Documents\\GitHub\\CalculatorSharp\\Calc\\Calc.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

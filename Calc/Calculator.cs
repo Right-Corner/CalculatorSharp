@@ -5,49 +5,6 @@ namespace Calc
 {
     public class Calculator
     {
-        static bool Rightness(char[] exp)
-        {
-            int count_p = 0;
-            if (exp[0]=='+' || exp[0]=='*' || exp[0] == '/' || exp[0] == ')')
-            {
-                return false;
-            }
-            else if (exp[exp.Length-1]=='+' || exp[exp.Length-1]=='-' || exp[exp.Length - 1]=='*' || exp[exp.Length-1]=='/')
-            {
-                return false;
-            }
-            else
-            {
-                for (int i=0; (i< exp.Length); i++)
-                {
-                    if ((exp[i]=='+' || exp[i]=='-' || exp[i]=='*' || exp[i]=='/') && (exp[i+1]=='+' || exp[i+1]=='*' || exp[i+1]=='/'))
-                    {
-                        return false;
-                    }
-                    if ((exp[i]=='/') && (exp[i+1]=='0'))
-                    {
-                        return false;
-                    }
-                    if (exp[i] == '(')
-                    {
-                        count_p++;
-                    }
-                    if (exp[i] == ')')
-                    {
-                        count_p--;
-                        if (count_p < 0)
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-            if (count_p != 0)
-            {
-                return false;
-            }
-            return true;
-        }
         static int EvaluateExpression(char[] exp)
         {
             Stack<int> vStack = new Stack<int>();
@@ -90,7 +47,7 @@ namespace Calc
         {
             int value = 0;
             while (pos < exp.Length && exp[pos] >= '0' && exp[pos] <= '9')
-                value = 10 * value + (int)(exp[pos++] - '0');
+                value = checked(10 * value + (int)(exp[pos++] - '0'));
             vStack.Push(value);
             return pos;
         }
@@ -122,6 +79,7 @@ namespace Calc
             }
             return evaluate;
         }
+
         static void ExecuteOperation(Stack<int> vStack, Stack<char> opStack)
         {
             int rightOperand = vStack.Pop();
@@ -151,15 +109,19 @@ namespace Calc
             char[] exp = line.ToCharArray();
             try
             {
-                if (!Rightness(exp)) 
-                {
-                    throw new Exception();
-                }
                 return Convert.ToString(EvaluateExpression(exp));
+            }
+            catch (DivideByZeroException)
+            {
+                return ("Деление на ноль!");
+            }
+            catch (OverflowException)
+            {
+                return ("Слишком большое число!");
             }
             catch (Exception)
             {
-                return ("Ошибка правильности выражения!");
+                return ("Проверьте правильность выражения!");
             }
         }
     }
